@@ -1,30 +1,35 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Appbar } from 'react-native-paper'
+import HomeHeader from './homeHeader'
+import { Icon, IconButton } from 'react-native-paper';
+import CardBar from './CardBar';
+import PostMain from './postmain';
 
 const HomeScreen = () => {
   return (
-    <>
-    <Appbar.Header>
-
-        <Appbar.Action icon="camera"  />
-
-    </Appbar.Header>
     <View style={styles.container}>
-      <Text>Home</Text>
+      <HomeHeader />
+      <ScrollView>
+        <CardBar />
+        
+        <PostMain />
+        <PostMain />
+        <PostMain />
+        <View style={{ borderBottomWidth: 1, borderColor: "#0000001a", flex: 1, }} />
+      </ScrollView>
     </View>
-    </>
+
+
   )
 }
 
 export default HomeScreen
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'white',
-        paddingHorizontal: 30
-      },
+  container: {
+    flex: 1,
+    // backgroundColor:'red'
+    // justifyContent:"center",
+    // alignItems:"center"
+  }
 })

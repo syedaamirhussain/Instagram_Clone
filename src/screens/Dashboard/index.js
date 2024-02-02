@@ -2,31 +2,31 @@ import * as React from 'react';
 import { BottomNavigation, Text } from 'react-native-paper';
 import HomeScreen from '../HomeScreen';
 
-const MusicRoute = () => <HomeScreen/>;
+const HomeRoute = () => <HomeScreen/>;
 
-const AlbumsRoute = () => <Text>Albums</Text>;
+const SearchRoute = () => <Text>Albums</Text>;
 
-const RecentsRoute = () => <Text>Recents</Text>;
+const AddRoute = () => <Text>Recents</Text>;
 
-const NotificationsRoute = () => <Text>Notifications</Text>;
+const LikeRoute = () => <Text>Notifications</Text>;
 
 const ProfileRoute = () => <Text>Profile</Text>;
 
 const Dashboard = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'music', focusedIcon: 'home', unfocusedIcon: 'home-outline', },
-    { key: 'albums', focusedIcon: 'magnify-plus-outline',unfocusedIcon: 'magnify' },
-    { key: 'recents', focusedIcon: 'plus-box',unfocusedIcon: 'plus-box-outline' },
-    { key: 'notifications', focusedIcon: 'cards-heart', unfocusedIcon: 'cards-heart-outline' },
+    { key: 'home', focusedIcon: 'home', unfocusedIcon: 'home-outline', },
+    { key: 'search', focusedIcon: 'magnify-plus-outline',unfocusedIcon: 'magnify' },
+    { key: 'add', focusedIcon: 'plus-box',unfocusedIcon: 'plus-box-outline' },
+    { key: 'like', focusedIcon: 'cards-heart', unfocusedIcon: 'cards-heart-outline' },
     { key: 'profile', focusedIcon: 'face-man-profile'},
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
-    music: MusicRoute,
-    albums: AlbumsRoute,
-    recents: RecentsRoute,
-    notifications: NotificationsRoute,
+    home:HomeRoute,
+    search: SearchRoute,
+    add: AddRoute,
+    like: LikeRoute,
     profile:ProfileRoute,
   });
 
