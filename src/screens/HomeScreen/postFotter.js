@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Icon, IconButton } from 'react-native-paper'
 import { Feather } from '@expo/vector-icons';
 
-const PostFotter = () => {
+const PostFotter = ({postFooterData}) => {
     const [isLiked, setLiked] = useState(false);
     const handleLikePress = () => {
         setLiked(!isLiked);

@@ -1,23 +1,47 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { Image, StyleSheet, View,  } from 'react-native';
+import { useSelector } from 'react-redux';
+import Carousel from 'react-native-reanimated-carousel';
 
-const PostBody = () => {
+
+const PostBody = ({postContent}) => {
+  const post = useSelector(state => state.post?.data);
+  
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: 'https://images.pexels.com/photos/1898555/pexels-photo-1898555.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'}}/>
-    </View>
-  )
-}
+      {postContent && 
+      <Carousel
+        width={400} 
+        height={375}
+        data={postContent?.content}
+        scrollAnimationDuration={1000}
+        renderItem={({ item }) => (
+            <Image source={{ uri: item }} style={styles.image} />
+        )}
+      />
+    }
 
-export default PostBody
+    </View>
+  );
+};
+
+export default PostBody;
 
 const styles = StyleSheet.create({
-    container:{
-        backgroundColor:'orange',
-        maxHeight:375,
-    },
-    image:{
-        width:'100%',
-        height:'100%',
-    }
-})
+  container: {
+    flex: 1,
+    // backgroundColor: 'red',
+    // resizeMode: 'cover',  
+  },
+  imageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover', 
+  },
+});

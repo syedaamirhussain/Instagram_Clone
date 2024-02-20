@@ -4,14 +4,14 @@ import { Avatar, IconButton } from 'react-native-paper';
 import { Entypo } from '@expo/vector-icons';
 
 
-const PostHeader = () => {
+const PostHeader = ({location,postBy}) => {
   return (
     <View style={styles.container}>
       <View style={styles.nameCity}>
-        <Avatar.Image size={38} source={{ uri: "https://images.pexels.com/photos/1468379/pexels-photo-1468379.jpeg" }} />
+        <Avatar.Image size={38} source={{ uri: postBy?.proImgLink }} />
         <View>
-          <Text style={styles.name}>Bina Khan</Text>
-          <Text style={styles.city}>Lahore</Text>
+          <Text style={styles.name}>{postBy?.name}</Text>
+          <Text style={styles.city}>{location}</Text>
         </View>
       </View>
       <IconButton icon="dots-vertical" onPress={() => console.log('Pressed')} />

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BottomNavigation, Text } from 'react-native-paper';
 import HomeScreen from '../HomeScreen';
+import Profile from '../Profile';
 
 const HomeRoute = () => <HomeScreen/>;
 
@@ -10,7 +11,7 @@ const AddRoute = () => <Text>Recents</Text>;
 
 const LikeRoute = () => <Text>Notifications</Text>;
 
-const ProfileRoute = () => <Text>Profile</Text>;
+const ProfileRoute = () => <Profile/>;
 
 const Dashboard = () => {
   const [index, setIndex] = React.useState(0);

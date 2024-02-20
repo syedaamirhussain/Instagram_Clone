@@ -22,11 +22,8 @@ const authSlice = createSlice({
         setIsLoggedIn: (state, action) => {
             state.isLoggedIn = action.payload
         },
-        setIsActive: (state, action) => {
-            state.isActive = action.payload;
-        }
-
+      
     }
 });
-export const { setCurrentUser, setIsLoading, setIsError, setIsLoggedIn, setIsActive } = authSlice.actions;
+export const { setCurrentUser, setIsLoading, setIsError, setIsLoggedIn,  } = authSlice.actions;
 export default authSlice.reducer;

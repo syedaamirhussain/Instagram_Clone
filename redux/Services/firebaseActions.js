@@ -1,7 +1,10 @@
 import { addDoc, doc, setDoc, getDoc, collection, getDocs, query, where, deleteDoc, onSnapshot } from "firebase/firestore";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut,signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, signInWithPopup } from 'firebase/auth';
 import { auth, db, googleProvider } from '../../firebase/firebaseConfig'
 import { combineSlices } from "@reduxjs/toolkit";
+import { setCurrentUser, setIsError, setIsLoggedIn } from "../Slices/authSlice";
+import { getAllUsers } from "../Slices/otherUserSlice";
+import { addfirebasePost } from "../Slices/firebasePostsSlice";
 
 
 
@@ -37,21 +40,20 @@ export const HandleSignUp = (values, navigation, setButtonLoading) => async (dis
 
 
 // Simple login //
-export const HandleSignIn = (values, navigation, setButtonLoading) => async (dispatch) => {
+export const HandleSignIn = (values, navigation, setButtonLoading, reset) => async (dispatch) => {
   try {
     const data = await signInWithEmailAndPassword(auth, values.email, values.password);
-    // console.log(data.user.email, "data when logged in successfully");
-    const userId = data.user.uid
-    window.navigator.userAgent = "ReactNative";
-    const userData = await getDoc(doc(db, "users", userId))
-    // console.log(userData, "data when logged in successfully")
-    // const userDetails = userData.data()
-    // dispatch({ type: 'USER_DATA', payload: userDetails });
-    console.log("Successfully logged in");
-    navigation.navigate('dashboard')
-  } catch (error) {
-    console.log(error)
-
+    const userId = data?.user.uid;
+    if (userId) {
+      const userData = await getDoc(doc(db, "users", userId))
+      // console.log(userData.data().name, "userData is herrrrrrrrrrrrrrrrrrr");
+      dispatch(setCurrentUser(userData.data()))
+      dispatch(setIsLoggedIn(true))
+      navigation.navigate('dashboard')
+      reset()
+    }
+  } catch (err) {
+    dispatch(setIsError(err.code))
   }
   finally {
     setButtonLoading(false);
@@ -59,46 +61,53 @@ export const HandleSignIn = (values, navigation, setButtonLoading) => async (dis
 };
 
 
-// Google sigin //
-// const auth = getAuth();
-export const HandleGoogleSignIn = ( navigation,) => async (dispatch) => {
+// get All users
+export const getUsers = (userId) => async (dispatch) => {
   try {
-    console.log('juuuuuuuuuuuuuuu')
-   const resp = await signInWithPopup(auth,googleProvider)
-   console.log(resp, "respone");
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    // const credential = googleProvider.credentialFromResult(result);
-    // const token = credential.accessToken;
-    // The signed-in user info.
-    // const user = result.user;
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
+    const q = query(collection(db, "users"), where("userId", "!=", userId));
+    const querySnapshot = await getDocs(q);
+    const users = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    dispatch(getAllUsers(users));
   }
-  catch(error){
-    // Handle Errors here.
-    console.log("console errrr")
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error?.customData.email;
-    // The AuthCredential type that was used.
-    // const credential = googleProvider.credentialFromError(error);
-    // ...
+  catch (err) {
+    console.log(err, "Error in getUsers");
   }
-  finally{
-    console.log('finallyyy')
+
+};
+
+// Get All Posts //
+export const getAllPosts = () => async (dispatch) => {
+  try {
+    const q = query(collection(db, "posts"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const posts = [];
+      snapshot.forEach((doc) => {
+        posts.push({ postId: doc.id, ...doc.data() });
+      });
+      dispatch(addfirebasePost(posts));
+    });
+    return unsubscribe;
+  } catch (err) {
+    console.log(err, "Error in getAllPosts");
   }
 };
 
 
-
-
-
-
-
 // Sign Out //
-// signOut(auth).then(() => {
-//   console.log('User Sign Out Successfully');
-// }).catch((error) => {
-//   console.log(error.message,"Error when sign out");
-// });
+export const logout = (navigation) => {
+  return new Promise((resolve, reject) => {
+    signOut(auth)
+      .then(() => {
+        console.log('User Sign Out Successfully');
+        navigation.navigate('login');
+        resolve();
+      })
+      .catch((error) => {
+        console.error('Error when signing out:', error.message);
+        reject(error);
+      });
+  });
+};
+
+
+

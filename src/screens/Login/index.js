@@ -47,14 +47,12 @@ const Login = () => {
         initialValues={{ email: '', password: '' }}
         validationSchema={loginSchema}
         onSubmit={(values, action) => {
-          try {
+            const reset=()=>{
+              action.resetForm();
+            }
             setButtonLoading(true);
-            dispatch(HandleSignIn(values, navigation, setButtonLoading))
-          } catch (e) {
-            console.log(e, 'error')
-          } finally {
-            action.resetForm();
-          }
+            dispatch(HandleSignIn(values, navigation, setButtonLoading,reset))
+            
         }}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
