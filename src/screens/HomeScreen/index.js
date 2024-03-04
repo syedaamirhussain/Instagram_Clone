@@ -19,7 +19,6 @@ const HomeScreen = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     const unsubscribe = dispatch(getAllPosts());
-    // return () => unsubscribe(); // Unsubscribe when component unmounts
   }, [dispatch]);
 
   const posts = useSelector(state => state.firebasePost.postData);
@@ -53,8 +52,5 @@ export default HomeScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor:'red'
-    // justifyContent:"center",
-    // alignItems:"center"
   }
 })

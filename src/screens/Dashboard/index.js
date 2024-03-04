@@ -2,6 +2,7 @@ import * as React from 'react';
 import { BottomNavigation, Text } from 'react-native-paper';
 import HomeScreen from '../HomeScreen';
 import Profile from '../Profile';
+import Likes from '../LikeTab';
 
 const HomeRoute = () => <HomeScreen/>;
 
@@ -9,7 +10,7 @@ const SearchRoute = () => <Text>Albums</Text>;
 
 const AddRoute = () => <Text>Recents</Text>;
 
-const LikeRoute = () => <Text>Notifications</Text>;
+const LikeRoute = () => <Likes/>;
 
 const ProfileRoute = () => <Profile/>;
 

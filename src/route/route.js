@@ -5,6 +5,7 @@ import React from 'react'
 import Signup from '../screens/Signup';
 import Login from '../screens/Login';
 import Dashboard from '../screens/Dashboard';
+import UserPost from '../screens/Profile/TopNavigation/UserPost';
 const Stack = createNativeStackNavigator();
 const Route = () => {
     return (
@@ -13,6 +14,7 @@ const Route = () => {
                 <Stack.Screen name="login" component={Login} options={{ headerShown: false }} />
                 <Stack.Screen name="signup" component={Signup} options={{ headerShown: false }} />
                 <Stack.Screen name="dashboard" component={Dashboard} options={{headerShown: false}}/>
+                <Stack.Screen name="UserPost" component={UserPost} options={{headerShown: false}} />
             </Stack.Navigator>
         </NavigationContainer>
     )

@@ -1,5 +1,4 @@
 import * as ImagePicker from 'expo-image-picker';
-import React, { useState, useEffect } from'react';
 
 
 export const openCamera = async () => {
@@ -16,6 +15,20 @@ export const openCamera = async () => {
     return result.assets[0];
 };
 
+export const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      return(result.assets[0]);
+    }
+  };
 
 
 

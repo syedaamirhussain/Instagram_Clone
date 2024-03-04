@@ -17,6 +17,10 @@ export const HandleSignUp = (values, navigation, setButtonLoading) => async (dis
       name: values.name,
       email: values.email,
       userId,
+      followers: [],
+      following: [],
+      gender:'',
+      createdAt: new Date().toISOString(),
     }
     window.navigator.userAgent = "ReactNative";
     const res = await setDoc(doc(db, 'users', userId), data);
@@ -46,7 +50,6 @@ export const HandleSignIn = (values, navigation, setButtonLoading, reset) => asy
     const userId = data?.user.uid;
     if (userId) {
       const userData = await getDoc(doc(db, "users", userId))
-      // console.log(userData.data().name, "userData is herrrrrrrrrrrrrrrrrrr");
       dispatch(setCurrentUser(userData.data()))
       dispatch(setIsLoggedIn(true))
       navigation.navigate('dashboard')
@@ -82,7 +85,7 @@ export const getAllPosts = () => async (dispatch) => {
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const posts = [];
       snapshot.forEach((doc) => {
-        posts.push({ postId: doc.id, ...doc.data() });
+        posts.push({ postId: doc.id, ...doc.data()});
       });
       dispatch(addfirebasePost(posts));
     });

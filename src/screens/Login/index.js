@@ -92,6 +92,9 @@ const Login = () => {
               <Button buttonColor='#3797EF' loading={buttonLoading} mode="contained" onPress={() => handleSubmit(values)} >
                 Log in
               </Button>
+              <Button buttonColor='reds'  mode="contained" onPress={()=>navigation.navigate('dashboard')} >
+                Home
+              </Button>
             </View>
           </>
         )}

@@ -23,7 +23,7 @@ const postmain = ({ data }) => {
     <View style={styles.container}>
       <PostHeader postBy={postUser} location={data?.location} />
       <PostBody postContent={data} />
-      <PostFotter postFooterData={data} />
+      <PostFotter postFooterData={data} postBy={postUser} description={data?.description}/>
     </View>
   )
 }

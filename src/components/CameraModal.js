@@ -75,7 +75,7 @@ const CameraModal = ({ modalVisible, setModalVisible }) => {
             return downloadURL;
         } catch (error) {
             console.error("Error uploading image:", error);
-            throw error; // Rethrow the error for handling in the caller function
+            throw error; 
         }
     }
 
@@ -91,11 +91,7 @@ const CameraModal = ({ modalVisible, setModalVisible }) => {
     const handleNextstepDown = () => {
         setstepUp(stepUp - 1);
     };
-
-    // const removePicture = (index) =>{
-    //    dispatch(removeContent(index) )
-
-    // }
+    
     return (
         <View style={styles.centeredView}>
             <Modal

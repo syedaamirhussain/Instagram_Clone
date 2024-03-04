@@ -22,8 +22,12 @@ const authSlice = createSlice({
         setIsLoggedIn: (state, action) => {
             state.isLoggedIn = action.payload
         },
+        setUserProFileImg: (state, action) => {
+            state.currentUser.proImgLink = action.payload
+        }
+
       
     }
 });
-export const { setCurrentUser, setIsLoading, setIsError, setIsLoggedIn,  } = authSlice.actions;
+export const { setCurrentUser, setIsLoading, setIsError, setIsLoggedIn,setUserProFileImg  } = authSlice.actions;
 export default authSlice.reducer;

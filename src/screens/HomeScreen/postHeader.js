@@ -1,10 +1,10 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import * as React from 'react';
 import { Avatar, IconButton } from 'react-native-paper';
-import { Entypo } from '@expo/vector-icons';
 
 
 const PostHeader = ({location,postBy}) => {
+  // console.log(postBy,'postBy')
   return (
     <View style={styles.container}>
       <View style={styles.nameCity}>
